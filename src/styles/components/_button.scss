@@ -7,6 +7,11 @@
   &:hover {
     background: $purpleHoverBtnBG;
     transform: $hoverScale;
+    transition: all 0.2s;
+  }
+  @media (max-width: 870px) {
+    @include sizeContainer(45%, 50px);
+    font-size: $buttontTextMob;
   }
 }
 .btn-active {

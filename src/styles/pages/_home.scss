@@ -24,6 +24,9 @@
     h2 {
       font-weight: 700;
       font-size: $title;
+      @media (max-width: 870px){
+        font-size: $titleMob;
+      }
     }
     div {
       @include alignContent(center, center);
@@ -35,5 +38,9 @@
     @include alignContent(center, center);
     width: 70%;
     flex-wrap: wrap;
+    @media(max-width: 870px){
+      width:100%;
+      gap: 5px;
+    }
   }
 }

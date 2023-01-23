@@ -115,7 +115,6 @@ function App() {
           }
         )}
       </div>
-      
         <SnackBarComponent
           open={openAlert}
           onClose={handleCloseAlert}

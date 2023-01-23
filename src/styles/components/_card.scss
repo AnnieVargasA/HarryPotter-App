@@ -1,5 +1,5 @@
 .card-container {
-  @include sizeContainer(25vw, 220px);
+  @include sizeContainer(35%, 220px);
   display: flex;
   margin: 20px;
   &--photoContainer {
@@ -20,35 +20,52 @@
     }
   }
   &--dataContainer {
-    width: 65%;
+    width: 70%;
     background-color: $white;
     border-radius: 0 20px 20px 0;
+    @media (max-width: 870px) {
+      width: 100%;
+      border-radius: 0 0 20px 20px;
+    }
+  }
+  @media (max-width: 870px) {
+    @include sizeContainer(40%, 200px);
+    flex-direction: column;
+    margin: 0;
   }
 }
-.death{
-  background-color: #CCCCCC;
+.death {
+  background-color: #cccccc;
 }
 .headCard-container {
   @include alignContent(space-between, center);
-  padding: 15px;
+  padding: 10px;
   p {
     color: $cardsFontTop;
     font-size: $buttonText;
+    @media(max-width: 870px){
+      font-size:$textMob;
+    }
   }
   img {
     @include sizeContainer(25px, 25px);
+    @media (max-width: 870px){
+      @include sizeContainer(20px,20px);
+    }
   }
 }
-
 
 .name {
   font-weight: $title;
   color: $cardsFontName;
   font-weight: 700;
-  padding: 10px 15px;
+  padding: 0 10px;
+  @media (max-width: 870px) {
+    font-size: $titleMob;
+  }
 }
 .data-container {
-  padding: 10px 15px;
+  padding: 10px;
   p {
     font-size: $text;
     margin: 3px 0;
@@ -60,6 +77,9 @@
         font-weight: 400;
         text-transform: capitalize;
       }
+    }
+    @media (max-width: 870px) {
+      display: none;
     }
   }
 }
