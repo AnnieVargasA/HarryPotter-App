@@ -1,0 +1,38 @@
+.home-container {
+  @include alignContent(center, center);
+  flex-direction: column;
+  // the linear gradient was applied to darken th BG
+  background-image: linear-gradient(
+      to right bottom,
+      rgba(0, 15, 28, 0.5),
+      rgba(0, 0, 0, 0.4)
+    ),
+    url("../../img/Background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  @include sizeContainer(100%, auto);
+  &--title {
+    @include alignContent(center, center);
+    flex-direction: column;
+    gap: 15px;
+    padding: 60px 0;
+    color: $white;
+    img {
+      height: 80px;
+    }
+    h2 {
+      font-weight: 700;
+      font-size: $title;
+    }
+    div {
+      @include alignContent(center, center);
+      width: 100%;
+      gap: 25px;
+    }
+  }
+  &--cards{
+    @include alignContent(center, center);
+    width: 70%;
+    flex-wrap: wrap;
+  }
+}

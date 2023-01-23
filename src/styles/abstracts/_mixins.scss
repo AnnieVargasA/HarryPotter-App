@@ -1,0 +1,21 @@
+@mixin alignContent($justify, $align) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin sizeContainer($width, $height){
+  width: $width;
+  height: $height;
+}
+
+@mixin colorImgProfile($bg){
+  @include alignContent(center, center);
+      width: 35%;
+      border-radius: 20px 0 0 20px;
+      background: $bg;
+      img {
+        @include sizeContainer(100px, 100px);
+        border-radius: 50%;
+      }
+}

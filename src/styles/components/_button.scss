@@ -1,0 +1,17 @@
+.btn {
+  @include sizeContainer(300px, 50px);
+  border: 1px solid $purple;
+  background: $ActiveBtnBG;
+  color: $white;
+  font-size: $buttonText;
+  &:hover {
+    background: $purpleHoverBtnBG;
+    transform: $hoverScale;
+  }
+  &:active {
+    background-color: $purple;
+  }
+}
+.test{
+  color: red;
+}

@@ -1,0 +1,31 @@
+//Primary pallete
+$black: #000000;
+$white: #ffffff;
+$purple: #6b63b5;
+$purpleHoverBtnBG: rgba(107, 99, 181, 0.6);
+$ActiveBtnBG: rgba(0, 0, 0, 0.6);
+
+// Fonts pallete
+$cardsFontTop: #999999;
+$cardsFontName: #081f32;
+$cardsFontData: #374a59;
+
+//Gradients pallete
+$gryffindorGradient: linear-gradient(135deg, #ff0000 0%, #fed482 100%);
+$slytherinGradient: linear-gradient(135deg, #1c792b 0%, #82e95e 100%);
+$hufflepuffGradient: linear-gradient(135deg, #ffc700 0%, #fff388 100%);
+$ravenclawGradient: linear-gradient(135deg, #0597b7 0%, #66d1ff 100%);
+
+// Desktop sizes
+$title: 36px;
+$subTitle: 30px;
+$buttonText: 17px;
+$text: 14px;
+
+// Mobile sizes
+$titleMob: 18px;
+$buttontTextMob: 13px;
+$text: 11px;
+
+// Scales
+$hoverScale: scale(1.05);
