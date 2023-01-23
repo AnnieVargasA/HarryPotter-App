@@ -1,0 +1,31 @@
+.navbar-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  color: $white;
+  &--menu {
+    @include alignContent(center, center);
+    @include sizeContainer(120px, 35px);
+    gap: 5px;
+    background: $purple;
+    img {
+      @include sizeContainer(20px, 20px);
+    }
+    &:hover {
+      transform: $hoverScale;
+    }
+    &:first-child {
+      border-radius: 0 0 0 10px;
+      border-right: rgba(64, 59, 109, 1);
+      border-right-style: solid;
+      border-right-width: 0.3px;
+    }
+    &:last-child {
+      border-radius: 0 0 10px 0;
+      border-left: rgba(64, 59, 109, 1);
+      border-left-style: solid;
+      border-left-width: 0.3px;
+      margin-right: 100px;
+    }
+  }
+}

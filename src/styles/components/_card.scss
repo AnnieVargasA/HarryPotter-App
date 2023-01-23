@@ -3,16 +3,19 @@
   display: flex;
   margin: 20px;
   &--photoContainer {
-    &--gryffindor {
+    &--empty {
+      @include colorImgProfile($purple);
+    }
+    &--Gryffindor {
       @include colorImgProfile($gryffindorGradient);
     }
-    &--slytherin {
+    &--Slytherin {
       @include colorImgProfile($slytherinGradient);
     }
-    &--hufflepuff {
+    &--Hufflepuff {
       @include colorImgProfile($hufflepuffGradient);
     }
-    &--ravenclaw {
+    &--Ravenclaw {
       @include colorImgProfile($ravenclawGradient);
     }
   }
@@ -21,6 +24,9 @@
     background-color: $white;
     border-radius: 0 20px 20px 0;
   }
+}
+.death{
+  background-color: #CCCCCC;
 }
 .headCard-container {
   @include alignContent(space-between, center);
@@ -33,6 +39,8 @@
     @include sizeContainer(25px, 25px);
   }
 }
+
+
 .name {
   font-weight: $title;
   color: $cardsFontName;

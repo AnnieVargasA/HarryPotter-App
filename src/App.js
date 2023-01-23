@@ -1,18 +1,21 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "./components/Button";
 import Card from "./components/Card";
+import Modal from "./components/Modal";
 import Navbar from "./components/Navbar";
 import SnackBarComponent from "./components/Snackbar";
 import HP from "./img/HP-title.svg";
-import Photo from "./img/profilePic.svg";
 import { addFavorite } from "./redux/reducers/favorites/favoritesSlice";
-
 
 function App() {
   const [openAlert, setOpenAlert] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [characters, setCharacters] = useState([]);
+  const [activeBtn, setActiveBtn] = useState("characters");
 
-  const favorites = useSelector((state)=>state.favorites.characters)
+  const favorites = useSelector((state) => state.favorites.characters);
   const dispatch = useDispatch();
   console.log(favorites);
 
@@ -22,93 +25,72 @@ function App() {
   const handleCloseAlert = () => {
     setOpenAlert(false);
   };
-  const addCharacter = ({name, imgProfile, id})=>{
-    dispatch(addFavorite({name, imgProfile, id}))
-  }
+  const handleStudentsRequest = async () => {
+    const response = await axios.get("http://localhost:5000/students");
+    setCharacters(response.data);
+    setActiveBtn("students");
+  };
+  const handleStaffRequest = async () => {
+    const response = await axios.get("http://localhost:5000/staff");
+    setCharacters(response.data);
+    setActiveBtn("staff")
+  };
+  const onCloseModal = () => {
+    setOpenModal(false);
+  };
+  const addCharacter = ({ name, imgProfile, id }) => {
+    dispatch(addFavorite({ name, imgProfile, id }));
+  };
+
+  useEffect(()=>{
+    const fetchCharacters= async()=>{
+      const response = await axios.get("http://localhost:5000/characters");
+    setCharacters(response.data);
+    }
+    fetchCharacters();
+  },[])
   return (
     <div className="home-container">
-      <Navbar />
+      <Navbar setOpenModal={setOpenModal} />
       <div className="home-container--title">
         <img src={HP} alt="Harry Potter" />
         <h2>Selecciona tu filtro</h2>
         <div>
           <Button
+          active={activeBtn === "students"}
             titleBtn="ESTUDIANTES"
             type="button"
-            onClick={handleOpenAlert}
+            onClick={handleStudentsRequest}
           />
-          <Button titleBtn="STAFF" type="button" onClick={()=>addCharacter({id: 89, name: "holis", imgProfile: "imgPRof"})} />
+          <Button active={activeBtn === "staff"} titleBtn="STAFF" type="button" onClick={handleStaffRequest} />
         </div>
       </div>
       <div className="home-container--cards">
-        <Card
-          photo={Photo}
-          fullName="Harry Potter"
-          alive="Vivo"
-          user="Estudiante"
-          birthday="31-07-1980"
-          gender="male"
-          eyes="green"
-          hair="black"
-          house="gryffindor"
-        />
-        <Card
-          photo={Photo}
-          fullName="Harry Potter"
-          alive="Vivo"
-          user="Estudiante"
-          birthday="31-07-1980"
-          gender="male"
-          eyes="green"
-          hair="black"
-          house="slytherin"
-        />
-        <Card
-          photo={Photo}
-          fullName="Harry Potter"
-          alive="Vivo"
-          user="Estudiante"
-          birthday="31-07-1980"
-          gender="male"
-          eyes="green"
-          hair="black"
-          house="hufflepuff"
-        />
-        <Card
-          photo={Photo}
-          fullName="Harry Potter"
-          alive="Vivo"
-          user="Estudiante"
-          birthday="31-07-1980"
-          gender="male"
-          eyes="green"
-          hair="black"
-          house="ravenclaw"
-        />
-        <Card
-          photo={Photo}
-          fullName="Harry Potter"
-          alive="Vivo"
-          user="Estudiante"
-          birthday="31-07-1980"
-          gender="male"
-          eyes="green"
-          hair="black"
-          house="ravenclaw"
-
-        />
-        <Card
-          photo={Photo}
-          fullName="Harry Potter"
-          alive="Vivo"
-          user="Estudiante"
-          birthday="31-07-1980"
-          gender="male"
-          eyes="green"
-          hair="black"
-          house="ravenclaw"
-
-        />
+        {characters.map(
+          ({
+            name,
+            house,
+            gender,
+            alive,
+            eyeColour,
+            hairColour,
+            dateOfBirth,
+            image,
+            hogwartsStudent,
+          }) => (
+            <Card
+              photo={image}
+              fullName={name}
+              alive={alive}
+              user={hogwartsStudent ? "Estudiante": "Staff"}
+              birthday={dateOfBirth}
+              gender={gender}
+              eyes={eyeColour}
+              hair={hairColour}
+              house={house}
+            />
+          )
+        )}
       </div>
       <SnackBarComponent
         open={openAlert}
@@ -116,6 +98,9 @@ function App() {
         severity="success"
         message="Agregaste un nuevo personaje exitosamente"
       />
+      {openModal && (
+        <Modal title="Agrega un personaje" onClose={onCloseModal} />
+      )}
     </div>
   );
 }

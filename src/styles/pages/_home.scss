@@ -1,5 +1,6 @@
 .home-container {
   @include alignContent(center, center);
+  @include sizeContainer(100%, auto);
   flex-direction: column;
   // the linear gradient was applied to darken th BG
   background-image: linear-gradient(
@@ -9,8 +10,8 @@
     ),
     url("../../img/Background.png");
   background-repeat: no-repeat;
-  background-size: cover;
-  @include sizeContainer(100%, auto);
+  background-size: contain;
+  background-color: $black;
   &--title {
     @include alignContent(center, center);
     flex-direction: column;

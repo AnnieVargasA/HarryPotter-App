@@ -8,10 +8,7 @@
     background: $purpleHoverBtnBG;
     transform: $hoverScale;
   }
-  &:active {
-    background-color: $purple;
-  }
 }
-.test{
-  color: red;
+.btn-active {
+  background-color: $purple;
 }

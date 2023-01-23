@@ -1,0 +1,21 @@
+.modal-background {
+  @include alignContent(center, center);
+  @include sizeContainer(100%, 100%);
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: 110;
+  background: rgba(0, 0, 0, 0.69);
+}
+.modal-container {
+  width: fit-content;
+  max-width: 700px;
+  background: $white;
+  border-radius: 10px;
+  padding: 30px;
+  &--title {
+    font-size: $subTitle;
+    font-weight: 700;
+    padding-bottom: 20px;
+  }
+}
