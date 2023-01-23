@@ -18,4 +18,18 @@
     font-weight: 700;
     padding-bottom: 20px;
   }
+  &--form {
+    @include alignContent(center,center);
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 500px;
+    div{
+      width: 200px;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  .MuiTextField-root{
+    width: 200px;
+  }
 }

@@ -41,17 +41,17 @@ function App() {
 
   const addNewCharacter = async(character)=>{
     if(character.hogwartsStudent){
-      await axios.post("http://localhost:5000/students",character);
+      await axios.post(`${process.env.REACT_APP_FAKEAPI}/students`,character);
       setOpenAlert(true);
       return
     }
-    await axios.post("http://localhost:5000/staff", character);
+    await axios.post(`${process.env.REACT_APP_FAKEAPI}/staff`, character);
     setOpenAlert(true);
   }
 
   useEffect(() => {
     const fetchCharacters = async () => {
-      const response = await axios.get("http://localhost:5000/characters");
+      const response = await axios.get(`${process.env.REACT_APP_FAKEAPI}/characters`);
       setCharacters(response.data);
     };
     fetchCharacters();
