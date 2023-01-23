@@ -1,4 +1,5 @@
-import BookMark from "../img/white-card-bookmark.svg";
+import BookMarkWhite from "../img/white-card-bookmark.svg";
+import BookMarkFav from "../img/Bookmark-fav.svg";
 
 const Card = ({
   photo,
@@ -10,6 +11,8 @@ const Card = ({
   eyes,
   hair,
   house,
+  addFavorite,
+  bookMarked
 }) => {
   return (
     <div className="card-container">
@@ -25,7 +28,7 @@ const Card = ({
           <p>
             {alive ? "Vivo" : "Finado"} / {user}
           </p>
-          <img src={BookMark} alt="Add to Favorite" />
+          <img src={bookMarked ? BookMarkFav : BookMarkWhite } alt="Add to Favorite" onClick={()=>addFavorite({name:fullName, imgProfile:photo})} />
         </div>
         <p className="name">{fullName}</p>
         <div className="data-container">

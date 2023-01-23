@@ -17,11 +17,8 @@ function App() {
 
   const favorites = useSelector((state) => state.favorites.characters);
   const dispatch = useDispatch();
-  console.log(favorites);
+  
 
-  const handleOpenAlert = () => {
-    setOpenAlert(true);
-  };
   const handleCloseAlert = () => {
     setOpenAlert(false);
   };
@@ -33,73 +30,101 @@ function App() {
   const handleStaffRequest = async () => {
     const response = await axios.get("http://localhost:5000/staff");
     setCharacters(response.data);
-    setActiveBtn("staff")
+    setActiveBtn("staff");
   };
   const onCloseModal = () => {
     setOpenModal(false);
   };
-  const addCharacter = ({ name, imgProfile, id }) => {
-    dispatch(addFavorite({ name, imgProfile, id }));
+  const addFavorites = ({ name, imgProfile }) => {
+    dispatch(addFavorite({ name, imgProfile, id: name }));
   };
 
-  useEffect(()=>{
-    const fetchCharacters= async()=>{
-      const response = await axios.get("http://localhost:5000/characters");
-    setCharacters(response.data);
+  const addNewCharacter = async(character)=>{
+    if(character.hogwartsStudent){
+      await axios.post("http://localhost:5000/students",character);
+      setOpenAlert(true);
+      return
     }
+    await axios.post("http://localhost:5000/staff", character);
+    setOpenAlert(true);
+  }
+
+  useEffect(() => {
+    const fetchCharacters = async () => {
+      const response = await axios.get("http://localhost:5000/characters");
+      setCharacters(response.data);
+    };
     fetchCharacters();
-  },[])
+  }, []);
   return (
     <div className="home-container">
-      <Navbar setOpenModal={setOpenModal} />
+      <Navbar favorites={favorites} setOpenModal={setOpenModal} />
       <div className="home-container--title">
         <img src={HP} alt="Harry Potter" />
         <h2>Selecciona tu filtro</h2>
         <div>
           <Button
-          active={activeBtn === "students"}
+            active={activeBtn === "students"}
             titleBtn="ESTUDIANTES"
             type="button"
             onClick={handleStudentsRequest}
           />
-          <Button active={activeBtn === "staff"} titleBtn="STAFF" type="button" onClick={handleStaffRequest} />
+          <Button
+            active={activeBtn === "staff"}
+            titleBtn="STAFF"
+            type="button"
+            onClick={handleStaffRequest}
+          />
         </div>
       </div>
       <div className="home-container--cards">
         {characters.map(
-          ({
-            name,
-            house,
-            gender,
-            alive,
-            eyeColour,
-            hairColour,
-            dateOfBirth,
-            image,
-            hogwartsStudent,
-          }) => (
-            <Card
-              photo={image}
-              fullName={name}
-              alive={alive}
-              user={hogwartsStudent ? "Estudiante": "Staff"}
-              birthday={dateOfBirth}
-              gender={gender}
-              eyes={eyeColour}
-              hair={hairColour}
-              house={house}
-            />
-          )
+          (
+            {
+              name,
+              house,
+              gender,
+              alive,
+              eyeColour,
+              hairColour,
+              dateOfBirth,
+              image,
+              hogwartsStudent,
+            },
+            idx
+          ) => {
+            const user = favorites.find(
+              ({ name: favName }) => favName === name
+            );
+            return (
+              <Card
+                key={`card${idx}`}
+                photo={image}
+                fullName={name}
+                alive={alive}
+                user={hogwartsStudent ? "Estudiante" : "Staff"}
+                birthday={dateOfBirth}
+                gender={gender}
+                eyes={eyeColour}
+                hair={hairColour}
+                house={house}
+                addFavorite={addFavorites}
+                bookMarked={!!user}
+              />
+            );
+          }
         )}
       </div>
-      <SnackBarComponent
-        open={openAlert}
-        onClose={handleCloseAlert}
-        severity="success"
-        message="Agregaste un nuevo personaje exitosamente"
-      />
+      
+        <SnackBarComponent
+          open={openAlert}
+          onClose={handleCloseAlert}
+          severity="success"
+          message={`Nuevo personaje agregado`}
+        />
+
       {openModal && (
-        <Modal title="Agrega un personaje" onClose={onCloseModal} />
+        <Modal addNewCharacter={addNewCharacter} title="Agrega un personaje" onClose={onCloseModal} />
       )}
     </div>
   );
