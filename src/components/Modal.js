@@ -5,48 +5,51 @@ import {
   RadioGroup,
   TextField,
 } from "@mui/material";
+import { useState } from "react";
 import Button from "./Button";
 
-const data = {
-  id: Date.now(),
-  name: "Hermione Granger",
-  species: "human",
-  gender: "female",
-  house: "Gryffindor",
-  dateOfBirth: "19-09-1979",
-  yearOfBirth: 1979,
-  ancestry: "muggleborn",
-  eyeColour: "brown",
-  hairColour: "brown",
-  wand: { wood: "vine", core: "dragon heartstring", length: "" },
-  patronus: "otter",
-  hogwartsStudent: true,
-  hogwartsStaff: false,
-  actor: "Emma Watson",
-  alive: true,
-  image: "http://hp-api.herokuapp.com/images/hermione.jpeg",
-};
-
 const Modal = ({ title, onClose, addNewCharacter }) => {
-  const {
-    name,
-    species,
-    gender,
-    house,
-    dateOfBirth,
-    yearOfBirth,
-    ancestry,
-    eyeColour,
-    hairColour,
-    wand,
-    patronus,
-    hogwartsStudent,
-    hogwartsStaff,
-    actor,
-    alive,
-    image,
-  } = addNewCharacter();
-  console.log(addNewCharacter());
+  const [fullName, setFullName]=useState("");
+  const [birthday, setBirthday]=useState("");
+  const [eyes, setEyes]=useState("");
+  const [hair, setHair]=useState("");
+  const [gender, setGender]=useState("female");
+  const [position, setPosition]=useState("student");
+
+  const handleName = (event)=>{
+    setFullName(event.target.value)
+  }
+  const handleBirthday = (event)=>{
+    setBirthday(event.target.value)
+  }
+  const handleEyes= (event)=>{
+    setEyes(event.target.value)
+  }
+  const handleHair = (event)=>{
+    setHair(event.target.value)
+  }
+  const submitData = ()=>{
+    const data = {
+      id: Date.now(),
+      name: fullName,
+      species: "human",
+      gender,
+      house: "",
+      dateOfBirth:birthday,
+      yearOfBirth: "",
+      ancestry: "",
+      eyeColour: eyes,
+      hairColour: hair,
+      wand: { wood: "vine", core: "dragon heartstring", length: "" },
+      patronus: "",
+      hogwartsStudent: position==="student",
+      hogwartsStaff: position==="staff",
+      actor: "",
+      alive: true,
+      image: "https://media.istockphoto.com/id/1300845620/es/vector/icono-de-usuario-plano-aislado-sobre-fondo-blanco-s%C3%ADmbolo-de-usuario-ilustraci%C3%B3n-vectorial.jpg?s=612x612&w=0&k=20&c=grBa1KTwfoWBOqu1n0ewyRXQnx59bNHtHjvbsFc82gk=",
+    };
+    addNewCharacter(data);
+  }
   const onClickBackdrop = (event) => {
     if (event.target.id === "backdrop") {
       onClose();
@@ -59,21 +62,23 @@ const Modal = ({ title, onClose, addNewCharacter }) => {
         <h1 className="modal-container--title">{title}</h1>
         <div className="modal-container--form">
           <TextField
-            value={name}
+            value={fullName}
             className="textinput"
             label="Nombre"
             variant="filled"
+            onChange={handleName}
           />
-          <TextField value={dateOfBirth} label="Cumpleaños" variant="filled" />
-          <TextField value={eyeColour} label="Color de Ojos" variant="filled" />
+          <TextField value={birthday} label="Cumpleaños" variant="filled" onChange={handleBirthday}/>
+          <TextField value={eyes} label="Color de Ojos" variant="filled" onChange={handleEyes}/>
           <TextField
-            value={hairColour}
+            value={hair}
             label="Color de Pelo"
             variant="filled"
+            onChange={handleHair}
           />
           <div>
             <FormLabel>Género</FormLabel>
-            <RadioGroup defaultValue="female" name="gender">
+            <RadioGroup value={gender} onChange={(event)=>setGender(event.target.value)} >
               <FormControlLabel
                 value="female"
                 control={<Radio />}
@@ -88,7 +93,7 @@ const Modal = ({ title, onClose, addNewCharacter }) => {
           </div>
           <div>
             <FormLabel>Posición</FormLabel>
-            <RadioGroup defaultValue="student" name="position">
+            <RadioGroup value={position} onChange={(event)=> setPosition(event.target.value)} >
               <FormControlLabel
                 value="student"
                 control={<Radio />}
@@ -104,7 +109,7 @@ const Modal = ({ title, onClose, addNewCharacter }) => {
           <Button
             type="submit"
             titleBtn="Enviar"
-            onClick={() => addNewCharacter(data)}
+            onClick={submitData}
           >
             Enviar
           </Button>
