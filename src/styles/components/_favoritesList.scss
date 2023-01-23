@@ -1,0 +1,52 @@
+.favoritesList {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+  &-item {
+    &:hover > ul{
+      display: flex;
+      flex-direction: column;
+    }
+    &--button {
+      @include alignContent(center, center);
+      @include sizeContainer(125px, 35px);
+      gap: 5px;
+      background: $purple;
+      border-radius: 0 0 0 10px;
+      border-right: rgba(64, 59, 109, 1);
+      border-right-style: solid;
+      border-right-width: 0.3px;
+      margin: 0;
+      img {
+        @include sizeContainer(20px, 20px);
+      }
+      &:hover {
+        transform: $hoverScale;
+      }
+    }
+    &--listContainer {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: none;
+      position: absolute;
+      border-radius: 5px;
+      z-index: 15;
+      width: 100%;
+      li {
+        @include alignContent(space-between, center);
+        @include sizeContainer(240px, auto);
+        padding: 10px;
+        border-radius: 3px;
+        background-color: $purple;
+        img {
+          @include sizeContainer(25px, 25px);
+          &:first-child {
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+  }
+}
