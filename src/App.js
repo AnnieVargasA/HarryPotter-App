@@ -23,12 +23,12 @@ function App() {
     setOpenAlert(false);
   };
   const handleStudentsRequest = async () => {
-    const response = await axios.get("http://localhost:5000/students");
+    const response = await axios.get(`${process.env.REACT_APP_FAKEAPI}/students`);
     setCharacters(response.data);
     setActiveBtn("students");
   };
   const handleStaffRequest = async () => {
-    const response = await axios.get("http://localhost:5000/staff");
+    const response = await axios.get(`${process.env.REACT_APP_FAKEAPI}/staff`);
     setCharacters(response.data);
     setActiveBtn("staff");
   };
