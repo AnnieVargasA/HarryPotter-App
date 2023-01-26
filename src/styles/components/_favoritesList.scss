@@ -4,7 +4,7 @@
   list-style: none;
   padding: 0;
   &-item {
-    &:hover > .favoritesList-item--listContainer {
+    &:hover > &--listContainer {
       display: flex;
       flex-direction: column;
     }
